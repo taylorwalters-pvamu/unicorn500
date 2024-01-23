@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Qlik Sense Script Generator</title>
+</head>
+<body>
+    <form method="post" action="{% url 'qlik_app:index' %}">
+        {% csrf_token %}
+        {% for dimension, options in dropdown_options.items %}
+            <label for="dropdown_{{ dimension }}">{{ dimension }}</label>
+            <select id="dropdown_{{ dimension }}" name="dropdown_{{ dimension }}">
+                {% for option in options %}
+                    <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select><br>
+        {% endfor %}
+        <button type="submit">Generate Script</button>
+    </form>
+</body>
+</html>
