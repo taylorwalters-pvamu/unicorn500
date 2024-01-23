@@ -33,10 +33,10 @@ Start the application: npm start
 Visit http://localhost:8000 in your web browser to access the application.
 
 <h2>Project Team</h2>
-Brandon Robinson
-Caleb Ajakaiye
-Max Agubuzo
-Rose Fantahun
+Brandon Robinson,
+Caleb Ajakaiye,
+Max Agubuzo,
+Rose Fantahun,
 Taylor Walters
 
 <h2>License</h2>
