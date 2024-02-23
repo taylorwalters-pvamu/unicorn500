@@ -16,16 +16,18 @@ async def root():
 
 #wrap in if statemnet for if qvd file, else response for incorrect file..........
 @app.post("/uploadfile/")
-async def create_upload_file(file: UploadFile):
+async def create_upload_file(file: UploadFile, visualization: str):
     print(f"Received file: {file.filename}")
     df_read = qvd_reader.read(file.filename)
     df = pd.DataFrame(df_read)
         
     json_data = df.to_json(orient='index') ##df.to_json(r'Path to store the exported JSON file\File Name.json')
 
-    return {json_data}
+    if visualization == "power_bi":
+        json_to_powerbi(json_data)
+        
 
-async def json_to_powerbi():
+async def json_to_powerbi(json_data):
 
 
 #need to have the json_data hit power bi's endpoint to create a dataset
