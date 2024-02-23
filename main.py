@@ -13,7 +13,7 @@ async def root():
     return {"message": "Hello World"}
 
 @app.post("/upload_file")
-async def create_upload_file(file: UploadFile):
+async def create_upload_file(file: UploadFile, visualization: str):
     try:
         with tempfile.NamedTemporaryFile(delete=False) as temp:
             shutil.copyfileobj(file.file, temp)
@@ -22,7 +22,12 @@ async def create_upload_file(file: UploadFile):
             df_read = qvd_reader.read(temp.name)
             df = pd.DataFrame(df_read)
             json_data = df.to_json(orient='index')
-            return JSONResponse(content=json_data, status_code=200)
+            json_response = JSONResponse(content=json_data, status_code=200)
+            
+            if visualization == "power_bi":
+                json_to_powerbi(json_response)
+            else:
+                return {"message": "complete"}
 
     except FileNotFoundError:
         raise HTTPException(status_code=404, detail="File not found")
@@ -31,7 +36,7 @@ async def create_upload_file(file: UploadFile):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"An error occurred: {e}")
 
-# async def json_to_powerbi(json_data):
+async def json_to_powerbi(json_data):
 
 
 #need to have the json_data hit power bi's endpoint to create a dataset
