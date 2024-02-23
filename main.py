@@ -1,33 +1,37 @@
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.responses import JSONResponse
 import pandas as pd
 import shutil
 import tempfile
 import os
-from typing import Annotated
 from qvd import qvd_reader
 
-#put response codes eventually
 app = FastAPI()
 
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
 
-#wrap in if statemnet for if qvd file, else response for incorrect file..........
-@app.post("/uploadfile/")
-async def create_upload_file(file: UploadFile, visualization: str):
-    print(f"Received file: {file.filename}")
-    df_read = qvd_reader.read(file.filename)
-    df = pd.DataFrame(df_read)
-        
-    json_data = df.to_json(orient='index') ##df.to_json(r'Path to store the exported JSON file\File Name.json')
+@app.post("/upload_file")
+async def create_upload_file(file: UploadFile):
+    try:
+        with tempfile.NamedTemporaryFile(delete=False) as temp:
+            shutil.copyfileobj(file.file, temp)
+            temp.flush()
+            temp.seek(0)
+            df_read = qvd_reader.read(temp.name)
+            df = pd.DataFrame(df_read)
+            json_data = df.to_json(orient='index')
+            return JSONResponse(content=json_data, status_code=200)
 
-    if visualization == "power_bi":
-        json_to_powerbi(json_data)
-        
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="File not found")
+    except ValueError as ve:
+        raise HTTPException(status_code=400, detail=f"ValueError: {ve}")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"An error occurred: {e}")
 
-async def json_to_powerbi(json_data):
+# async def json_to_powerbi(json_data):
 
 
 #need to have the json_data hit power bi's endpoint to create a dataset
