@@ -1,3 +1,13 @@
+# PLEASE READ ALL COMMENTS BELOW THIS LINE___________________________________________________________________________________
+# use PIP install for the following packages below.
+# make sure you have python installed and added to path if on windows. You can also download python from the microsoft store.
+
+# to run this app follow the steps below (first ensure you completed the above instructions):
+# - in terminal type: Uvicorn main:app --reload
+# - copy the url found in the terminal into a browser of you choice
+# - append /docs to the url
+# message in the team chat for any assistance needed. Yepppp good lookin yall. 
+
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.responses import JSONResponse
 import pandas as pd
@@ -11,7 +21,20 @@ app = FastAPI()
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
-
+    """_summary_
+        The below function is an api path named "/upload_file" this path allows the user to upload a qvd file for the function to then convert to JSON.
+        The JSON will be passed to the appropriate "visualization" function.
+        
+        arguments: 
+            name: file | type: UploadFile | description: the QVD file
+            name: visualization | type: str | description: the 
+            
+        returns:
+            null
+        
+        remember, this function does not need to return anything. Its job is to
+        JSON serialize (to convert to json) the QVD file then pass that to PowerBI or another visualization tool
+    """
 @app.post("/upload_file")
 async def create_upload_file(file: UploadFile, visualization: str):
     try:
@@ -37,7 +60,7 @@ async def create_upload_file(file: UploadFile, visualization: str):
         raise HTTPException(status_code=500, detail=f"An error occurred: {e}")
 
 async def json_to_powerbi(json_data):
-
+    print("TODO: work on json_to_powerbi")
 
 #need to have the json_data hit power bi's endpoint to create a dataset
 #route for the batch processing that you can require a folder or zip for
