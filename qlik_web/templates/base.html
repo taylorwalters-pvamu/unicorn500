@@ -1,7 +1,7 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en">
 <head>
     <title>{% block title %}Your Website Title{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -25,37 +25,20 @@
     <aside class="sidebar">
         <li onclick=hideSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 96 960 960" width="26" fill="#f0f0f0">
             <path d="m249 849-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z"/></svg></a></li>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">How it works</a></li>
-        <li><a href="#">Adapter</a></li>
-        <li><a href="#">Support</a></li>
+        <li><a href="{% url 'index' %}">Home</a></li>
+        <li><a href="{% url 'demo' %}">How it works</a></li>
+        <li><a href="{% url 'auth' %}">Adapter</a></li>
+        <li><a href="{% url 'support' %}">Support</a></li>
     </aside>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const sidebar = document.querySelector('.sidebar');
-            const closeButton = document.querySelector('.close-button');
-
-    // Function to open sidebar
-            function openSidebar() {
-                sidebar.style.right = '0';
-                }
-
-    // Function to close sidebar
-        function closeSidebar() {
-            sidebar.style.right = '-250px';
-            }
-
-    // Event listener for close button
-        closeButton.addEventListener('click', closeSidebar);
-        });
-    function showSidebar(){
-      const sidebar = document.querySelector('.sidebar')
-      sidebar.style.display = 'flex'
-    }
-    function hideSidebar(){
-      const sidebar = document.querySelector('.sidebar')
-      sidebar.style.display = 'none'
-    }
+        function showSidebar(){
+            const sidebar = document.querySelector('.sidebar')
+            sidebar.style.display = 'flex'
+        }
+        function hideSidebar(){
+            const sidebar = document.querySelector('.sidebar')
+            sidebar.style.display = 'none'
+        }
     </script>
 </body>
 </html>

@@ -14,7 +14,6 @@ nav{
     background-color: black;
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
     height: 70px;
-    position: sticky;
   }
 
 nav .bold-text{
@@ -50,7 +49,20 @@ nav li:first-child{
 .with-background-color{
     background-color: black;
 }
-
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 100px; /* Adjust the height as needed */
+    cursor: pointer; /* Add cursor pointer */
+}
+video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure the video covers the entire container */
+}
 .image-container {
     position: relative;
     width: 100%;
@@ -90,6 +102,24 @@ nav li:first-child{
     background-color: black;
     align-items: center;
 }
+
+.login-container {
+    width: 300px;
+    margin: 0 auto;
+    padding: 50px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 99%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
 .sidebar{
     position: fixed;
     top: 0; 
