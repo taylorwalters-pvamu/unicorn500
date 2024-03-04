@@ -8,3 +8,9 @@ def demo(request):
 
 def support(request):
     return render(request, 'support.html')
+
+def adapter(request):
+    return render(request, 'adapter.html')
+
+def u_auth(request):
+    return render(request, 'user_authent.html')
