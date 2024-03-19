@@ -15,6 +15,9 @@
             </div>
             <button type="submit">Login</button>
         </form>
+        {% if error_message %}
+            <p>{{ error_message }}</p>
+        {% endif %}
     </div>
     
     <script src="/qlik_web/static/javaScript/script.js"></script> <!-- Link to your JavaScript file -->

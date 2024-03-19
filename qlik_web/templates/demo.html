@@ -1,22 +1,17 @@
 {% extends 'base.html' %}
-{% block title %}Demo{% endblock %}
+{% block title %}How it Works?{% endblock %}
 {% block content %}
-<div class="container">
-    <div class="demo-container" onclick="toggleVideo()">
-        <video loop muted>
-            <source src="/qlik_web/static/images/SDWeek6Demo.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-        </video>
-    </div>
-    <script>
-        function toggleVideo() {
-            var video = document.getElementById("video");
-            if (video.paused) {
-                video.play();
-            } else {
-                video.pause();
-            }
-        }
-    </script>
-</div>
+{% load embed_video_tags %}
+
+<!-- The video tag: -->
+{% video item.video as my_video %}
+  URL: {{ my_video.url }}
+  Thumbnail: {{ my_video.thumbnail }}
+  Backend: {{ my_video.backend }}
+
+  {% video my_video "large" %}
+{% endvideo %}
+
+<!-- Or embed shortcut: -->
+{% video my_video '800x600' %}
 {% endblock %}
