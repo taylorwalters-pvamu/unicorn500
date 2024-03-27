@@ -1,17 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}How it Works?{% endblock %}
+{% block title %}Adapter{% endblock %}
 {% block content %}
-{% load embed_video_tags %}
-
-<!-- The video tag: -->
-{% video item.video as my_video %}
-  URL: {{ my_video.url }}
-  Thumbnail: {{ my_video.thumbnail }}
-  Backend: {{ my_video.backend }}
-
-  {% video my_video "large" %}
-{% endvideo %}
-
-<!-- Or embed shortcut: -->
-{% video my_video '800x600' %}
+Insert Video
 {% endblock %}
