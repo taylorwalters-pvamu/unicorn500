@@ -1,6 +1,8 @@
 from fastapi import FastAPI, File, UploadFile,  HTTPException
 from fastapi.responses import JSONResponse
+from pydantic import BaseModel
 import pandas as pd
+from datetime import datetime
 from typing import Annotated
 import shutil
 import tempfile
@@ -11,7 +13,6 @@ import asyncio
 import json
 from qvd import qvd_reader
 
-#put response codes eventually
 app = FastAPI()
 
 @app.get("/")
@@ -42,10 +43,16 @@ def qvd_to_json(file:UploadFile):
 """
 In order to create a table in Power BI, we first need all of the columns and their data types.
 """
+
+class JsonData(BaseModel):
+    json_data: str
+    dataset_name: str = "Orders"  # Default value if not provided
+    table_name: str = "Table1"  # Default value if not provided
+
 @app.post("/json_to_powerbi/")
-async def json_to_pbi_dataset(json_data: str):
+async def json_to_pbi_dataset(data: JsonData):
     try:
-        original_data = json.loads(json_data)
+        original_data = json.loads(data.json_data)
         first_row = next(iter(original_data.values()))
 
         def infer_data_type(value):
@@ -60,27 +67,33 @@ async def json_to_pbi_dataset(json_data: str):
                     float(value)
                     return "Double" if "." in value else "Int64"
                 except ValueError:
-                    return "DataTime" if "-" in value else "string"
+                    try:
+                        # Attempt to parse the string as a date
+                        # You might need to adjust this based on your date format
+                        datetime.strptime(value, "%d-%m-%Y")
+                        return "DateTime"
+                    except ValueError:
+                        return "string"
             else:
                 return "Unknown"
         
         columns_list = [{"name": key, "dataType": infer_data_type(value)} for key, value in first_row.items()]
 
         transformed_data = {
-            "name": "Orders", ## need to change this to infered from file name
+            "name": data.dataset_name, ## need to change this to infered from file name
             "defaultMode": "Push",
             "tables": [
                 {
-                    "name": "Table1",  ## need to change this to user input
+                    "name": data.table_name,  ## need to change this to user input
                     "columns": columns_list
                 }
             ]
         }
 
-        transformed_json_data = json.dumps(transformed_data, indent=4)
+        transformed_json_data = json.dumps(transformed_data)
         return transformed_json_data
 
     except json.JSONDecodeError as e:
-        print("There was an error decoding the JSON:", e)
+        raise HTTPException(status_code=400, detail=f"Error decoding JSON: {e}")
     except Exception as e:
-        print("An unexpected error occurred:", e)
+        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
