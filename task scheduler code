@@ -1,0 +1,16 @@
+import schedule
+import time as tm
+from datetime import time, timedelta, datetime
+
+# insert code below
+def job():
+    print("Your code goes here!")
+
+#schedule.every().seconds.do(job)
+#schedule.every().second.do(job) 'second' singular will just execute task every second
+schedule.every().seconds.do(job) #'same with minutes'
+
+while True:
+    schedule.run_pending()
+    tm.sleep(3)
+    #tm.sleep(5) seconds 
