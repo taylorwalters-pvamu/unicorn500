@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="image-container"></div>
+    <div class="text-container" style="background-color: #3b3734; color: #f0f0f0; font-family: 'Garamond'; text-align: center; padding-top: 25px;">
+        <h1 style="margin-bottom: 15px; text-align: left; font-stretch: expanded;">Qlik <br> Sense <br> Adapter</h1>
+        <div class="custom-text" style="text-align: left; font-size: large; padding-left: 18px; font-stretch: condensed;">
+            Our team created this tool to encourage collaboration 
+            between Qlik sense enterprise users and both cross-functional teams and external partners.
+            After uploading object, a user may transpose data to PowerBI or Tableau.
+        </div>
+            <center><button type="submit">Learn More</button>
+        <sub>Get an inside look at how to use this tool!</sub></center>
+    </div>
+</div>
+
+<div class="text-container">
+    <h1>Senior Design Project: Qlik Sense Adapter Web Application<h1></h1>
+
+    <h2 style="margin-top: 20px;">Project Overview</h2>
+The Qlik Sense Adapter Web Application is a senior design project that leverages a web-based platform to serve as an adapter, connecting users to the powerful cloud-based data analytics tool, Qlik Sense. This project addresses the need for seamless integration between external systems and Qlik Sense, facilitating efficient data analysis and visualization for users.
+
+    <h2 style="margin-top: 20px;">Features</h2>
+
+    <div class="indent">
+    <h4 style="margin-top: 10px;">Adapter Integration:</h4>
+The adapter seamlessly connects users to Qlik Sense, allowing them to harness the full potential of the cloud-based data analytics tool without the need for complex configurations.
+    </div>
+
+    <div class="indent">
+    <h4 style="margin-top: 10px;">Data Analytics Workflow:</h4>
+Users can navigate through a streamlined data analytics workflow, from data import to visualization, enhancing their experience in leveraging Qlik Sense for insightful data analysis.
+    </div>
+
+    <h2 style="margin-top: 20px;">Key Components</h2>
+    <div class="indent">
+    <h3 style="margin-top: 10px;">1. Web-based Adapter</h3>
+The core component of the project, the web-based adapter, serves as the bridge between users and Qlik Sense. It handles authentication, data transfer, and communication with the cloud-based tool.
+    </div>
+
+    <div class="indent">
+    <h3 style="margin-top: 10px;">2. User Interface</h3>
+The user interface is designed with a focus on simplicity and functionality. Users can easily import data, configure analysis parameters, and visualize results within the same platform.
+    </div>
+
+    <div class="indent">
+    <h3 style="margin-top: 10px;">3. Qlik Sense Integration</h3>
+The adapter seamlessly integrates with Qlik Sense, ensuring a smooth and efficient connection. It leverages the capabilities of Qlik Sense for robust data analytics and visualization.
+    </div>
+
+    <h2 style="margin-top: 20px;">Project Team</h2>
+    <div class="indent">
+Brandon Robinson</h1><br>
+Caleb Ajakaiye<br>
+Max Agubuzo<br>
+Rose Fantahun<br>
+Taylor Walters
+</div>
+
+    <h2 style="margin-top: 20px;">License</h2>
+TBA
+
+    <h2 style="margin-top: 20px;">Acknowledgments</h2>
+We would like to express our gratitude to Dr. Noushin Ghaffari and Cyriac Matthews for their guidance and support throughout the development of this senior design project. <br>
+    <a href="{% url 'demo' %}" style="padding-left: 650px; margin-top: 20px; color: #383737">How it works</a>
+</div>
+
+{% endblock %}
