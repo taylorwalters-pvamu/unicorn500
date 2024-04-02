@@ -5,17 +5,18 @@
 <head>
     <title>{% block title %}Your Website Title{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 <body>
     <nav>
         <ul>
-          <li><a href="{% url 'index' %}" style="font-size: 32px;">🦄<span class="bold-text">Unicorn500</span></a></li>
-          <li class="hideOnMobile"><a href="{% url 'index' %}">Home</a></li>
-          <li class="hideOnMobile"><a href="{% url 'demo' %}">How it works</a></li>
-          <li class="hideOnMobile"><a href="{% url 'login' %}">Adapter</a></li>
-          <li class="hideOnMobile"><a href="{% url 'support' %}">Support</a></li>
+          <li><a href="{% url 'index' %}" style="font-size: 42px;">🦄<span class="bold-text">Unicorn500</span></a></li>
+          <li class="hideOnMobile"><a href="{% url 'index' %}" style="font-size: 22px;">Home</a></li>
+          <li class="hideOnMobile"><a href="{% url 'demo' %}" style="font-size: 22px;">How it works</a></li>
+          <li class="hideOnMobile"><a href="{% url 'login' %}" style="font-size: 22px;">Adapter</a></li>
+          <li class="hideOnMobile"><a href="{% url 'support' %}"style="font-size: 22px;">Support</a></li>
           <li class="menu-button" onclick=showSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 96 960 960" width="26" fill="#f0f0f0">
             <path d="M120 816v-60h720v60H120Zm0-210v-60h720v60H120Zm0-210v-60h720v60H120Z"/></svg></a></li>
         </ul>

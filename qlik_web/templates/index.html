@@ -3,12 +3,15 @@
 {% block content %}
 <div class="container">
     <div class="image-container"></div>
-    <div class="text-container" style="background-color: #3b3734; color: #f0f0f0; text-align: left; padding-top: 25px;">
-        <h1 style="margin-bottom: 15px; text-align: left;">Qlik <br> Sense <br> Adapter</h1>
-        We created this tool to make it easier for Qlik enterprise users <br>
-        to share data and engage with their partners outside of the enterprise system.
-        <center><button type="submit">Learn More</button></center>
-        <center><sub>Get an inside look at how to use this tool!</sub></center>
+    <div class="text-container" style="background-color: #3b3734; color: #f0f0f0; font-family: 'Garamond'; text-align: center; padding-top: 25px;">
+        <h1 style="margin-bottom: 15px; text-align: left; font-stretch: expanded;">Qlik <br> Sense <br> Adapter</h1>
+        <div class="custom-text" style="text-align: left; font-size: large; padding-left: 18px; font-stretch: condensed;">
+            Our team created this tool to encourage collaboration 
+            between Qlik sense enterprise users and both cross-functional teams and external partners.
+            After uploading object, a user may transpose data to PowerBI or Tableau.
+        </div>
+            <center><button type="submit">Learn More</button>
+        <sub>Get an inside look at how to use this tool!</sub></center>
     </div>
 </div>
 
@@ -60,7 +63,7 @@ TBA
 
     <h2 style="margin-top: 20px;">Acknowledgments</h2>
 We would like to express our gratitude to Dr. Noushin Ghaffari and Cyriac Matthews for their guidance and support throughout the development of this senior design project. <br>
-    <a href="{% url 'demo' %}" style="padding-left: 650px; margin-top: 20px; color: #f0f0f0">How it works</a>
+    <a href="{% url 'demo' %}" style="padding-left: 650px; margin-top: 20px; color: #383737">How it works</a>
 </div>
 
 {% endblock %}
