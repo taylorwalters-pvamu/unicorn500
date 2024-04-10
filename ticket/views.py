@@ -5,7 +5,8 @@ from django.conf import settings
 from django.contrib import messages
 from .forms import SupportTicketForm
 
-def s_ticket(request):
+# Create your views here.
+def submit_ticket(request):
     if request.method == 'POST':
         form = SupportTicketForm(request.POST)
         if form.is_valid():
@@ -17,12 +18,3 @@ def s_ticket(request):
     else:
         form = SupportTicketForm()
     return render(request, 'support.html', {'form': form})
-
-def index(request):
-    return render(request, 'index.html')
-
-def demo(request):
-    return render(request, 'demo.html')
-
-def adapter(request):
-    return render(request, 'adapter.html')
