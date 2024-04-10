@@ -3,13 +3,7 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 import pandas as pd
 from datetime import datetime
-from typing import Annotated
-import shutil
-import tempfile
-import os
-import sys
-import time
-import asyncio
+from typing import Annotated, List, Dict
 import json
 from qvd import qvd_reader
 
@@ -36,9 +30,8 @@ def qvd_to_json(file:UploadFile):
     df = pd.DataFrame(df_read)
         
     json_data = df.to_json(orient='index') ##df.to_json(r'Path to store the exported JSON file\File Name.json')
-
+    print(json_data)
     return json_data
-
 
 """
 In order to create a table in Power BI, we first need all of the columns and their data types.
@@ -90,10 +83,48 @@ async def json_to_pbi_dataset(data: JsonData):
             ]
         }
 
-        transformed_json_data = json.dumps(transformed_data)
+        transformed_json_data = json.dumps(transformed_data)    
         return transformed_json_data
 
     except json.JSONDecodeError as e:
         raise HTTPException(status_code=400, detail=f"Error decoding JSON: {e}")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
+
+
+@app.post("/format_for_powerbi/")
+async def format_for_powerbi(json_data: str):
+    try:
+        original_data = json.loads(json_data)
+        print(original_data)
+    
+        if not isinstance(original_data, dict):
+            raise ValueError("Input data is not a valid JSON object.")
+        
+        rows_list = []
+        for item in original_data.values():
+            row = {key: convert_value(value) for key, value in item.items()}
+            rows_list.append(row)
+        
+        transformed_data = {"rows": rows_list}
+        return json.dumps(transformed_data)
+
+    except json.JSONDecodeError as e:
+        raise HTTPException(status_code=400, detail=f"Error decoding JSON: {e}")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
+
+def convert_value(value):
+    """
+    Attempt to convert string values to their appropriate data types.
+    """
+    if isinstance(value, str):
+        try:
+            return float(value) if '.' in value else int(value)
+        except ValueError:
+            return value
+    else:
+        return value
+
+#response into variables (need to save for making rows)
+#post request for creating rows from json data
