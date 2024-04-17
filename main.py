@@ -1,6 +1,7 @@
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
 import pandas as pd
+import aiofiles
 import shutil
 import tempfile
 import os
@@ -27,6 +28,16 @@ async def create_upload_file(file: UploadFile):
 
     return {json_data}
 
+async def excel_download_file(json_data):
+    # Load JSON data into a DataFrame
+    df = pd.read_json(json_data)
+    
+    # Export DataFrame to Excel
+    excel_filename = 'data.xlsx'
+    async with aiofiles.open(excel_filename, 'wb') as file:
+        await file.write(df.to_excel(index=False))
+
+    
 
 async def tableau_publish_dataset(json_data):
     
